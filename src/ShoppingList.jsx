@@ -12,31 +12,34 @@ function ShoppingList() {
   const [listItems, setListItems] = useState(INITIAL_TASKS);
   const [completedItems, setCompletedItems] = useState([]);
 
-  function handleInputOnChange(e) {
+  function handleInputChange(e) {
     setNewItem(e.target.value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setListItems([...listItems, { id: id++, label: newItem }]);
+    const label = newItem.trim();
+    if (!label) return;
+    setListItems([...listItems, { id: id++, label: label }]);
     setNewItem("");
   }
 
   function handleCheck(e) {
     const item = Number(e.target.value);
     const newArr = completedItems.includes(item)
-      ? completedItems.filter((val) => val != item)
+      ? completedItems.filter((val) => val !== item)
       : [...completedItems, item];
     setCompletedItems(newArr);
   };
 
-  function handleDelete(e) {
-    const newListItems = listItems.filter((val) => val.id != e.target.value);
-    setListItems([...newListItems]);
+  function handleDelete(id) {
+    const item = Number(id);
+    const newListItems = listItems.filter((val) => val.id !== item);
+    setListItems(newListItems);
     const newCompletedItems = completedItems.filter(
-      (val) => val != e.target.value,
+      (val) => val !== item,
     );
-    setCompletedItems([...newCompletedItems]);
+    setCompletedItems(newCompletedItems);
   }
 
   return (
@@ -45,7 +48,7 @@ function ShoppingList() {
         <input
           aria-label="Add new task"
           type="text"
-          onChange={handleInputOnChange}
+          onChange={handleInputChange}
           value={newItem}
         />
         <button type="submit">Add item</button>
@@ -70,7 +73,7 @@ function ShoppingList() {
               />
               {item.label}
 
-              <button value={item.id} onClick={handleDelete}>
+              <button onClick={()=> handleDelete(item.id)}>
                 Delete
               </button>
             </li>
