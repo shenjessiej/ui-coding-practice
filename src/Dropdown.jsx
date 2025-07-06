@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import {Fragment} from 'react';
 
 const INTERVALS = [{
     id: 1,
@@ -40,7 +41,7 @@ const INTERVALS = [{
 }
 ]
 
-function MenuGroup({ section, onItemClick }) {
+function MenuGroup({ section, onSelect }) {
     const [expanded, setExpanded] = useState(true);
 
     function handleOnClick() {
@@ -55,7 +56,7 @@ function MenuGroup({ section, onItemClick }) {
         </button>
 
         {expanded && section.options.map((option) => {
-            return (<MenuItem onClick={onItemClick} key={option.value} option={option} />)
+            return (<MenuItem onClick={onSelect} key={option.value} option={option} />)
         })}
     </div>)
 }
@@ -71,13 +72,13 @@ function MenuItem({ option, onClick }) {
     </button>)
 }
 
-function Dropdown({ selected, setSelected, sections }) {
+function Dropdown({ selected, onSelect, sections }) {
     const [isOpen, setOpen] = useState(false);
 
-    const handleItemClick = useCallback((e) => {
-        setSelected(e.target.value);
+    const handleSelect = useCallback((e) => {
+        onSelect(e.target.value);
         setOpen(false);
-    }, [setSelected])
+    }, [onSelect])
 
     function handleOnClick() {
         setOpen((open) => !open);
@@ -90,9 +91,12 @@ function Dropdown({ selected, setSelected, sections }) {
                 {selected}
             </button>
             {isOpen && <div role="menu" className='dropdown__menu'>
-                {sections.map((section) => {
-                    return (<MenuGroup key={section.id} section={section} onItemClick={handleItemClick} />)
-                }).reduce((prev, curr) => (<>{prev} <hr/> {curr}</>))}</div>}
+                {sections.map((section, i) => {
+                    return (<Fragment key={section.id}>
+                            {i > 0 && <hr />}
+                        <MenuGroup key={section.id} section={section} onSelect={handleSelect} />
+                        </Fragment>)
+                })}</div>}
         </div>
     );
 }
@@ -103,7 +107,7 @@ function App() {
 
     return (
         <>
-            <Dropdown selected={activeItem} setSelected={setActiveItem} sections={intervals} />
+            <Dropdown selected={activeItem} onSelect={(val) => setActiveItem(val)} sections={intervals} />
         </>
     )
 }
