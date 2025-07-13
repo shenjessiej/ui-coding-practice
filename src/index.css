@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  margin: auto;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -26,8 +30,8 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  min-width: 100vw;
+  height: 100vh;
 }
 
 h1 {
@@ -65,54 +69,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
-
-.highlight {
-  background-color: yellow;
-}
-
-.dropdown {
-  position: relative;
-}
-.dropdown__menu {
-  position: absolute;
-  text-align: left;
-  width: 150px;
-  background-color: #2A2E39;
-  color:#AEB1BA;
-  padding: 5px;
-}
-
-.dropdown button {
-  background-color: #2A2E39;
-  color: #BCC9D4;
-  border-radius: 0px;
-}
-
-.dropdown__option {
-  padding: 5px 10px;
-  color: #BCC9D4;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.dropdown__option:hover {
-background-color: #2862FF;
-}
-
-.bg-blue-100 {
-  background-color: #2862FF;
-
-}
-
-.dropdown__sectionlabel {
-  font-size: 12px;
-  padding: 5px 10px;
-  text-transform: uppercase;
-}
-
-.dropdown__menu hr {
-  height: 1px;
-  background-color: #AEB1BA;
-  border: none;
 }

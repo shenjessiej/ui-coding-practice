@@ -4,7 +4,7 @@ import './index.css'
 //import App from './Dropdown'
 import TransactionList from './TransactionList'
 import FormApp from './Form'
-import App from './CardMatching'
+import App from './Histogram'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

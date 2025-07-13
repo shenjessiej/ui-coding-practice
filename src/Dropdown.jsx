@@ -1,5 +1,6 @@
 import { useCallback, useState, useRef, useEffect } from 'react'
 import {Fragment} from 'react';
+import './dropdown.css'
 
 const INTERVALS = [{
     id: 1,

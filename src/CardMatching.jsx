@@ -37,7 +37,7 @@ function Board({ n }) {
 
     function handleClick(x, y) {
 
-        if (revealed.length === 1 && revealed[0].loc[0] === x && revealed[0].loc[1] === y) return;
+        if (!grid[x][y].hidden) return;
 
         const newGrid = structuredClone(grid);
         let newRevealed = structuredClone(revealed);
